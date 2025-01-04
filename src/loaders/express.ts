@@ -2,13 +2,14 @@ import express from 'express'
 import type { Request, Response, Express } from 'express'
 import morgan from 'morgan'
 import cors from 'cors'
-import config from '../config/index'
+import config from 'src/config/index'
+import routes from 'src/api/index'
 
 export default async (app: Express): Promise<Express> => {
   app.use(
     cors({
-      credentials: true, //para poder enviar credenciales
-      origin: config.frontendURL, //solo los dominios que se coloquen aqui podran consultar nuestro backend
+      credentials: true,
+      origin: config.frontendURL,
     }),
   )
 
@@ -18,13 +19,14 @@ export default async (app: Express): Promise<Express> => {
   app.use(express.json())
 
   // mdiddleware for parsing URL-encoded data sent from HTML forms.
-  app.use(express.urlencoded({ extended: false })) //Limitado a texto plano
+  app.use(express.urlencoded({ extended: false }))
 
   app.get('/ping', (_req: Request, res: Response) => {
     res.send('pong')
   })
 
-  //Esto es para cualquier otra ruta (que no cumple con las anteriores)
+  app.use(config.api.prefix, routes())
+
   app.get('*', (_req: Request, res: Response) => {
     res.status(404).json({
       success: false,
