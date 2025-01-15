@@ -17,8 +17,10 @@ export const createCourses = (req: Request, res: Response): void => {
 
   if (!havePermission) {
     res.status(400).json({ message: 'no tienes permiso para realizar esta accion' })
+    return
   } else {
     res.status(200).json({ message: 'los cursos se han creado' })
+    return
   }
 
   res.json({ message: 'informacion recibida' })

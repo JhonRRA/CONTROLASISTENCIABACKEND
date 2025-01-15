@@ -7,5 +7,5 @@ const route = Router()
 export default (app: Router): void => {
   app.use('/etl', route)
 
-  route.use('/create-courses', verifyToken, createCourses)
+  route.post('/create-courses', verifyToken, createCourses)
 }

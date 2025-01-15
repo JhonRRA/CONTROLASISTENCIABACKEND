@@ -1,5 +1,6 @@
 import { CustomError } from '@utils/errors'
 import jwt from 'jsonwebtoken'
+import { token } from 'morgan'
 import config from 'src/config'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -16,3 +17,7 @@ export async function createAccessToken(payload: string | object | Buffer): Prom
     })
   })
 }
+
+createAccessToken({ id: '123', role: 'STUDENT' }).then((token) => {
+  console.log('🚀 ~ file: jwt.ts:11 ~ createManualToken ~ token:', token)
+})

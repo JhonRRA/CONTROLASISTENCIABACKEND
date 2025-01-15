@@ -7,11 +7,12 @@ import UserModel from '@users/models/User.model'
 export const verifyToken = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const { token } = req.headers
 
-  //if (token === undefined) return res.status(400).json({ success: false, data: { message: 'token not found' } })
-  if (!token) {
-    res.status(400).json({ success: false, data: { message: 'token not found' } })
-    return
-  }
+  if (token === undefined) res.status(400).json({ success: false, data: { message: 'token not found' } })
+
+  //if (!token) {
+  //  res.status(400).json({ success: false, data: { message: 'token not found' } })
+  //  return
+  //}
 
   const secretToken = config.secretToken
 
