@@ -29,8 +29,8 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
         res.status(400).json({ success: false, data: { message: 'invalid token' } })
       }
 
-      const userFound = await UserModel.findById(payload?.id)
-      if (userFound === null) res.status(400).json({ success: false, data: { message: 'user not found' } })
+      //const userFound = await UserModel.findById(payload?.id)
+      //if (userFound === null) res.status(400).json({ success: false, data: { message: 'user not found' } })
 
       req.user = payload
       next()

@@ -18,6 +18,6 @@ export async function createAccessToken(payload: string | object | Buffer): Prom
   })
 }
 
-createAccessToken({ id: '123', role: 'STUDENT' }).then((token) => {
+createAccessToken({ id: '111', role: 'STUDENT' }).then((token) => {
   console.log('🚀 ~ file: jwt.ts:11 ~ createManualToken ~ token:', token)
 })
