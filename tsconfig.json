@@ -33,6 +33,7 @@
       "@src/*": ["./src/*"],
       "@users/*": ["./src/features/users/*"],
       "@auth/*": ["./src/features/auth/*"],
+      "@course/*": ["./src/features/courses/*"],
       "@utils/*": ["./src/utils/*"],
       "@libs/*": ["./src/libs/*"],
       "@etl/*": ["./src/features/etl/*"]
