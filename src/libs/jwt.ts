@@ -18,6 +18,12 @@ export async function createAccessToken(payload: string | object | Buffer): Prom
   })
 }
 
+// Llamada de prueba a la función createAccessToken
+// Esto genera un token cuando se inicializa el servidor, lo cual puede ser innecesario y generar ruido en los logs.
+// Si es necesario para pruebas, se recomienda moverlo a un archivo de test o ejecutarlo manualmente en desarrollo.
+
+/*
 createAccessToken({ id: '111', role: 'ADMINISTRATOR' }).then((token) => {
   console.log('🚀 ~ file: jwt.ts:11 ~ createManualToken ~ token:', token)
 })
+*/
