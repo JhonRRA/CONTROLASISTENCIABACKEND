@@ -8,3 +8,8 @@ export interface User {
   pictureURL: string
   role: role
 }
+
+export interface UserEdit {
+  fullName: string
+  phone: string
+}

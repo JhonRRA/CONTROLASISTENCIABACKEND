@@ -1,5 +1,5 @@
 import { CustomError } from '@utils/errors'
-import jwt from 'jsonwebtoken'
+import jwt, { type JwtPayload } from 'jsonwebtoken'
 import { token } from 'morgan'
 import config from 'src/config'
 
@@ -27,3 +27,19 @@ createAccessToken({ id: '111', role: 'ADMINISTRATOR' }).then((token) => {
   console.log('🚀 ~ file: jwt.ts:11 ~ createManualToken ~ token:', token)
 })
 */
+
+export const verifyAndDecodeAccessToken = (
+  token: string,
+): Partial<JwtPayload> & {
+  id: string
+  role: string
+} => {
+  const secretToken = config.secretToken
+
+  if (typeof secretToken !== 'string') throw new CustomError({ message: 'Secret Token no es una cadena', status: 500 })
+
+  return jwt.verify(token, secretToken) as Partial<JwtPayload> & {
+    id: string
+    role: string
+  }
+}

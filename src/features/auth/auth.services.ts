@@ -1,8 +1,13 @@
+import { type Types } from 'mongoose'
+
 import * as usersData from '@users/users.data'
 import * as authData from '@auth/auth.data'
 
-import { createAccessToken } from '@libs/jwt'
+import { createAccessToken, verifyAndDecodeAccessToken } from '@libs/jwt'
 import { getUserInfoByGToken } from '@libs/googleOAuth'
+
+import { CustomError } from 'src/utils/errors'
+import { type User } from '@users/models/User.interfaces'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const googleOAuth = async (token: any): Promise<any> => {
@@ -28,6 +33,21 @@ export const googleOAuth = async (token: any): Promise<any> => {
     const tokenGenerated = await createAccessToken({ id: registeredUser._id, role: registeredUser.role })
 
     return { token: tokenGenerated, userInfo: registeredUser }
+  } catch (error) {
+    console.log('errorService', error)
+    throw error
+  }
+}
+
+export const verifyToken = async (token: string): Promise<(User & { _id: Types.ObjectId }) | null> => {
+  try {
+    const payload = verifyAndDecodeAccessToken(token)
+
+    const user = await usersData.findUserById(payload.id)
+
+    if (user === null) throw new CustomError({ message: 'User not found', status: 400 })
+
+    return user
   } catch (error) {
     console.log('errorService', error)
     throw error
